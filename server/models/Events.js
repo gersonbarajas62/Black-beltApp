@@ -45,8 +45,14 @@ const EventsSchema = new Schema({
     },
     
     tags:{
-        type:[]
+        type:[String]
     },
 
+    is_active:{
+        type:Boolean,
+        default:true
+    }
     
-})
+}, {timestamps:true});
+
+module.exports = mongoose.model('events', EventsSchema);
