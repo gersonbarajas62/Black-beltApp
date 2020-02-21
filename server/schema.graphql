@@ -1,0 +1,67 @@
+type query{
+    getUsers(is_active:Boolean): [User!]!
+    getUser(id:ID, emaIL:String): User 
+
+}
+
+type Mutation{
+    creatUser:(data:Useradd!):User!
+}
+
+input Useradd {
+    first_name:String!
+    last_name:String!
+    email:String!
+    password:String!
+    birth_date:Date
+    gender:GENDER
+    phote:String
+}
+
+type User{
+    _id:ID!
+    first_name:String
+    last_name:String
+    email:String
+    birth_date:birth_date
+    gender:GENDER
+    phote:String
+    events_create:[Events]
+    events_assists:[Events]
+    is_active:Boolean
+    createdAt:Date
+    updatedAt:Date
+
+}
+
+enum GENDER {
+    M
+    F
+    O
+}
+
+type Events {
+    title:String
+    description:String
+    date:Date
+    address:Address
+    assistance:[User]
+    created_by:User
+    banner:String
+    tags:[String]
+    is_active:Boolean
+    createdAt:Date
+    updatedAt:Date
+
+}
+
+type Address{
+     street:String
+    city:String
+    number:String
+    country:String
+    state:String
+    zip:String
+    lat:Float
+    long:Float
+}
