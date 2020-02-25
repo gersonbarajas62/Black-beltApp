@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const Schema = mongoose.Schema;
 
@@ -15,7 +16,7 @@ const UserSchema = new Schema({
     },
 
     email:{
-        type:Date,
+        type:String,
         require:true,
         unique:true
     },
@@ -27,7 +28,7 @@ const UserSchema = new Schema({
     },
 
     birth_date:{
-        type:Date
+        type:String
     },
 
     gender:{
@@ -55,5 +56,18 @@ const UserSchema = new Schema({
     }
     
 }, {timestamps:true});
+
+UserSchema.pre('save', function(next){
+    const user = this;
+    if(!user.isModified('password')) next();
+    const SALT_FACTOR = perseInt(process.env.SALT_FACTOR)
+    bcrypt.genSalt(SALT_FACTOR,function(error,salt){
+        if(error) return next(error);
+        bcrypt.hash(user.password,salt,function(err,hash){
+            user.password = hash;
+            next();
+        })
+    })
+})
 
 module.exports = mongoose.model('users', UserSchema);

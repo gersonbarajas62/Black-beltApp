@@ -12,8 +12,8 @@ input Useradd {
     first_name:String!
     last_name:String!
     email:String!
-    password:String!
-    birth_date:Date
+    password:String
+    birth_date:String
     gender:GENDER
     phote:String
 }
@@ -29,8 +29,8 @@ type User{
     events_create:[Events]
     events_assists:[Events]
     is_active:Boolean
-    createdAt:Date
-    updatedAt:Date
+    createdAt:String
+    updatedAt:String
 
 }
 
@@ -50,8 +50,8 @@ type Events {
     banner:String
     tags:[String]
     is_active:Boolean
-    createdAt:Date
-    updatedAt:Date
+    createdAt:String
+    updatedAt:String
 
 }
 
